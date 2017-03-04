@@ -107,7 +107,7 @@ app.get('/article-three',function(req,res){
 var names = [];
 app.get('/submit-name/:name',function(req,res){
   //Get the name from the request
-   var name = res.params.name;
+   var name = req.params.name;
    names.push(name);
    res.send(JSON.stringify(names));
 });

@@ -48,8 +48,6 @@ button.onclick = function (){
   };
   
   //Make the request
- var nameInput = document.getElementById("name");
- var name = nameInput.value;
     request.open('GET','http://sharonshahu.imad.hasura-app.io/counter',true);
     request.send(null);
 };

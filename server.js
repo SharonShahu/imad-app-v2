@@ -104,6 +104,14 @@ app.get('/article-three',function(req,res){
    res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
 });
 */
+var names = [];
+app.get('/submit-name/:name',function(req,res){
+  //Get the name from the request
+   var name = res.params.name;
+   names.push(name);
+   res.send(JSON.stringify(names));
+});
+
 
 app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));

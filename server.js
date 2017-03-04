@@ -6,20 +6,40 @@ var app = express();
 app.use(morgan('combined'));
 
 
-var articleOne = {
-    title: 'Article /one | Sharon',
-    heading: 'Article One',
-    date: 'March 3, 2017',
-    content:`
-            <p>
-                My First article i.e article-one.
-            </p>
-            <p>
-                My First article i.e article-one.
-            </p>
-            <p>
-                My First article i.e article-one.
-            </p>`
+var articles = {
+    'article-one' : {
+        title: 'Article /one | Sharon',
+        heading: 'Article One',
+        date: 'March 3, 2017',
+        content:`
+                <p>
+                    My First article i.e article-one.
+                </p>
+                <p>
+                    My First article i.e article-one.
+                </p>
+                <p>
+                    My First article i.e article-one.
+                </p>`
+    },
+    'article-two' : {
+        title: 'Article Two | Sharon',
+        heading: 'Article Two',
+        date: 'March 3, 2017',
+        content:`
+                <p>
+                    My Second article i.e article-two.
+                </p>`
+    },
+    'article-three' : {
+        title: 'Article Three | Sharon',
+        heading: 'Article Three',
+        date: 'March 3, 2017',
+        content:`
+                <p>
+                    My Third article i.e article-three.
+                </p>`
+        }
 };
 
 function createTemplate(data){ //for passing values from javascript declaration to javascript function
@@ -60,12 +80,14 @@ function createTemplate(data){ //for passing values from javascript declaration 
         `;
         return htmlTemplate;
 }
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one',function(req,res){
-   res.send(createTemplate(articleOne));
+app.get('/articleName',function(req,res){
+    var articleName = res.param.articleName;
+   res.send(createTemplate(articles[articleName]));
 });
 
 app.get('/article-two',function(req,res){

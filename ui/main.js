@@ -1,12 +1,12 @@
 console.log('Loaded!');
 
 //Change the text of the main page invoking by ID
-var element = document.getElementById('main-test');
+var element = document.getElementById("main-test");
 element.innerHTML = "New";
 
 //Move the image
-var img = document.getElementById('madi.png');
-marginLeft = 0;
+var img = document.getElementById('madi');
+var marginLeft = 0;
 function moveRight(){
     marginLeft = marginLeft + 4;
     img.style.marginLeft = marginLeft + 'px';

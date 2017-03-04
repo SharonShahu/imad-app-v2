@@ -8,7 +8,7 @@ element.innerHTML = "New";
 var img = document.getElementById('madi.png');
 marginLeft = 0;
 function moveRight(){
-    marginLeft +=4;
+    marginLeft = marginLeft + 4;
     img.style.marginLeft = marginLeft + 'px';
 }
 //every 100ms moveRight function is called

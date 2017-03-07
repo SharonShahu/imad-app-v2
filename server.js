@@ -120,9 +120,22 @@ app.get('/submit-name',function(req,res){ //URL: /subit-name?name=xxxxx
 });
 
 
-app.get('/:articleName',function(req,res){
-    var articleName = req.params.articleName;
-   res.send(createTemplate(articles[articleName]));
+app.get('/articles/:articleName',function(req,res){
+   // var articleName = req.params.articleName;
+    pool.query("SELECT * FROM article WHERE title = " + req.params.articleName,function(err,result){
+        if(err){
+            res.status(500).send(err.toString());
+        }else{
+            if(result.row.length == 0){
+                res.status(404).send("Article not found");
+            }
+            else{
+                var articleData = result.rows[0];
+                res.send(createTemplate(articles[articleName]));
+            }
+        }
+    });
+   
 });
 /*
 app.get('/article-two',function(req,res){

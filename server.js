@@ -76,7 +76,7 @@ function createTemplate(data){ //for passing values from javascript declaration 
                     </h3>
                     <hr/>
                     <div>
-                        ${date}
+                        ${date.toDateString()}
                     </div>
                     <div>
                      ${content}

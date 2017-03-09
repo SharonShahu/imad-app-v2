@@ -106,7 +106,7 @@ app.get('/test-db',function(req,res){
    //return a respond withthe result
 });
 
-function hash(input){
+function hash(input,salt){
     //how do we create a hash
     var hashed = crypto.pbkdf2Sync(input,salt,10000,512,'sha512');
     return hashed.toString('hex');

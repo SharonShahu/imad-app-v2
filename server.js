@@ -149,18 +149,22 @@ app.post('/login',function(req,res){
        }
        
    });
-    
-    app.get('/check-login', function(req,res){
-        if(req.session && req.session.auth && req.session.auth.userId){
-            res.send('U r logged in: ' + req.session.auth.userId.toString());
-        }
-        else{
-            res.send('u r not logged in');
-        }
+   
+});   
+app.get('/check-login', function(req,res){
+    if(req.session && req.session.auth && req.session.auth.userId){
+        res.send('U r logged in: ' + req.session.auth.userId.toString());
+    }
+    else{
+       res.send('u r not logged in');
+    }
         
-    });
 });
 
+app.get('/logout', function(req,res){
+   delete req.session.auth;
+   res.send('Logged out');
+});
 
 var names = [];
 app.get('/submit-name',function(req,res){ //URL: /subit-name?name=xxxxx

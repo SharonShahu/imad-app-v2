@@ -1,3 +1,38 @@
+//Submit username , password to login
+ var submit = document.getElementById("submit_btn");
+ submit.onclick = function(){
+   //create a request object
+  var request = new XMLHttpRequest();
+  
+  //Capture the response and store it in a variable
+  request.onreadystatechange = function () {
+      if (request.readyState == XMLHttpRequest.DONE){
+          //take some action
+          if (request.status === 200){
+             alert('Logged in successfully');
+          }
+          else if(request.status === 403){
+              alert('Username/password is incorrect');
+          }
+          else if(request.status === 500){
+              alert('Something went wrong in the server');
+          }
+      }
+      //not done yet
+  };
+  
+  //Make the request
+   var username = document.getElementById("username").value;
+   var password = document.getElementById("password").value;
+   console.log(username);
+   console.log(password);
+    request.open('POST','http://sharonshahu.imad.hasura-app.io/login',true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send(JSON.stringify({username: username, password: password}));
+};
+
+
+
 /*console.log('Loaded!');
 /*
 //Change the text of the main page invoking by ID
@@ -15,7 +50,7 @@ function moveRight(){
 img.onclick = function (){
     var interval = setInterval(moveRight,100);
 };
-*/
+
 
 //counter code
 
@@ -41,7 +76,7 @@ button.onclick = function (){
                ul.innerHTML = list;
             /*  var counter = request.responseText;
               var span = document.getElementById("count");
-              span.innerHTML = counter.toString();*/
+              span.innerHTML = counter.toString();
           }
       }
       //not done yet
@@ -52,7 +87,6 @@ button.onclick = function (){
     request.send(null);
 };
 
-  
  //Submit name
  var submit = document.getElementById("submit_btn");
  submit.onclick = function(){
@@ -83,7 +117,7 @@ button.onclick = function (){
     request.open('GET','http://sharonshahu.imad.hasura-app.io/submit-name?name=' + name,true);
     request.send(null);
 };
- 
+ */
   //Render the variable in the correct span
 /*  counter = counter + 1;
   var span = document.getElementById("count");

@@ -133,7 +133,7 @@ app.get('/counter',function(req,res){
 app.post('/create-user',function(req,res){
    //username password
    //extracting username & pass from body of type JSON
-   //{'username': "sharon", 'password': :"password"}
+   //{"username": "sharon", "password": :"password"}
    
    var username = req.body.username;
    var password = req.body.password;

@@ -4,7 +4,7 @@ var path = require('path');
 var Pool = require('pg').Pool;
 var crypto = require('crypto');
 var bodyParser = require('body-parser');
-
+var session = require('express-session');
 var config = {
     user: 'sharonshahu',
     database: 'sharonshahu',
@@ -15,7 +15,10 @@ var config = {
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
-
+app.use(session({
+    secret: 'sendRandomSecretValue',
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 30}
+}));
 
 function createTemplate(data){ //for passing values from javascript declaration to javascript function
     var title = data.title;
@@ -133,6 +136,10 @@ app.post('/login',function(req,res){
                var salt = dbString.split('$')[2];
                var hashedPassword = hash(password,salt); //creating a hash based on the passsword submitted and original salt
                if(hashedPassword === dbString){
+                   //Set the session
+                   req.session.auth = {userId: result.rows[0].id};
+                   //sets a cookie with session id
+                   //internally on the server side, it maps session id to an object
                    res.send('Correct Credentials');
                }
                else{
@@ -143,6 +150,15 @@ app.post('/login',function(req,res){
        
    });
     
+    app.get('/check-login', function(req,res){
+        if(req.session && req.session.auth && req.session.auth.userId){
+            res.send('U r logged in: ' + req.session.auth.userId.toString());
+        }
+        else{
+            res.send('u r not logged in');
+        }
+        
+    });
 });
 
 

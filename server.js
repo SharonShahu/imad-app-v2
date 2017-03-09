@@ -119,7 +119,7 @@ app.post('/login',function(req,res){
     var username = req.body.username;
     var password = req.body.password;
    
-   pool.query('SELECT * FROM "user" WHERE username=$1',[username],function(err,result){
+   pool.query('SELECT * FROM "user" WHERE username = $1',[username],function(err,result){
         if (err){
            res.status(500).send(err.toString());
        } else{
@@ -132,7 +132,7 @@ app.post('/login',function(req,res){
                var dbstring = result.rows[0].password;
                var salt = dbString.split('$')[2];
                var hashedPassword = hash(password,salt); //creating a hash based on the passsword submitted and original salt
-               if(hashedPassword === dbstring){
+               if(hashedPassword === dbString){
                    res.send('Correct Credentials');
                }
                else{
@@ -172,15 +172,6 @@ app.get('/articles/:articleName',function(req,res){
     });
    
 });
-/*
-app.get('/article-two',function(req,res){
-   res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
-});
-
-app.get('/article-three',function(req,res){
-   res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
-});
-*/
 
 app.get('/ui/main.js', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'main.js'));

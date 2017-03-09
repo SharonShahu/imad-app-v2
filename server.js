@@ -152,6 +152,36 @@ app.post('/create-user',function(req,res){
     
 });
 
+app.get('/login',function(req,res){
+    var username = req.body.username;
+   var password = req.body.password;
+   
+   pool.query('SELECT * FROM "user" username=$1',[username],function(err,result){
+        if (err){
+           res.status(500).send(err.toString());
+       } else{
+           //if no row selected
+           if(result.rows.length == 0){
+               res.send(403).send('username/password is invalid'); //403:forbidden request
+           }
+           else{
+               //Match the password
+               var dbstring = result.rows[0].password;
+               var salt = dbString.split('$')[2];
+               var hashedPassword = hash(password,salt); //creating a hash based on the passsword submitted and original salt
+               if(hashedpassword == dbstring){
+                   res.send('Correct Credentials');
+               }
+               else{
+                   res.send(403).send('username/password is invalid');
+               }
+           }
+       }
+       
+   });
+    
+});
+
 
 var names = [];
 app.get('/submit-name',function(req,res){ //URL: /subit-name?name=xxxxx

@@ -2,6 +2,7 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var Pool = require('pg').Pool;
+var crypto = require('crypto');
 
 var config = {
     user: 'sharonshahu',
@@ -14,7 +15,7 @@ var app = express();
 app.use(morgan('combined'));
 
 
-var articles = {
+/*var articles = {
     'article-one' : {
         title: 'Article /one | Sharon',
         heading: 'Article One',
@@ -48,7 +49,7 @@ var articles = {
                     My Third article i.e article-three.
                 </p>`
         }
-};
+};*/
 
 function createTemplate(data){ //for passing values from javascript declaration to javascript function
     var title = data.title;
@@ -103,6 +104,17 @@ app.get('/test-db',function(req,res){
        }
    });
    //return a respond withthe result
+});
+
+function hash(input){
+    //how do we create a hash
+    var hashed = crypto.pbkdf2Sync(input,salt,10000,512,'sha512');
+    return hashed.toString('hex');
+}
+
+app.get('/hash/:input',function(req,res){
+   var hashedString = hash(req.params.input,'this-is-a-random-string'); 
+   res.send(hashedString);
 });
 
 var counter = 0;

@@ -109,10 +109,11 @@ app.get('/test-db',function(req,res){
 function hash(input,salt){
     //how do we create a hash (password based key derivation function)
     var hashed = crypto.pbkdf2Sync(input,salt,10000,512,'sha512');
-    return hashed.toString('hex');
+    return ["pbkdf2","10000",salt,hashed.toString('hex')].join('$');
     
     //algorithm: ,d5
-    //'password' -> dhguygywe63873gjhdsbkjfht556gds
+    //'password' <-> dhguygywe63873gjhdsbkjfht556gds
+    //'password'+'salt' -> dhguygywe63873gjhdsbkjfht556gds
 }
 
 app.get('/hash/:input',function(req,res){

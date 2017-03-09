@@ -161,7 +161,7 @@ app.get('/login',function(req,res){
            res.status(500).send(err.toString());
        } else{
            //if no row selected
-           if(result.rows.length == 0){
+           if(result.rows.length === 0){
                res.send(403).send('username/password is invalid'); //403:forbidden request
            }
            else{

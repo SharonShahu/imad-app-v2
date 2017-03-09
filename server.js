@@ -17,43 +17,6 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 
 
-
-/*var articles = {
-    'article-one' : {
-        title: 'Article /one | Sharon',
-        heading: 'Article One',
-        date: 'March 3, 2017',
-        content:`
-                <p>
-                    My First article i.e article-one.
-                </p>
-                <p>
-                    My First article i.e article-one.
-                </p>
-                <p>
-                    My First article i.e article-one.
-                </p>`
-    },
-    'article-two' : {
-        title: 'Article Two | Sharon',
-        heading: 'Article Two',
-        date: 'March 3, 2017',
-        content:`
-                <p>
-                    My Second article i.e article-two.
-                </p>`
-    },
-    'article-three' : {
-        title: 'Article Three | Sharon',
-        heading: 'Article Three',
-        date: 'March 3, 2017',
-        content:`
-                <p>
-                    My Third article i.e article-three.
-                </p>`
-        }
-};*/
-
 function createTemplate(data){ //for passing values from javascript declaration to javascript function
     var title = data.title;
     var heading = data.heading;
@@ -152,11 +115,11 @@ app.post('/create-user',function(req,res){
     
 });
 
-app.get('/login',function(req,res){
+app.post('/login',function(req,res){
     var username = req.body.username;
     var password = req.body.password;
    
-   pool.query('SELECT * from "user" WHERE username=$1',[username],function(err,result){
+   pool.query('SELECT * FROM "user" WHERE username=$1',[username],function(err,result){
         if (err){
            res.status(500).send(err.toString());
        } else{
